@@ -1,0 +1,109 @@
+<!--  place the contents of this css file, in the <head></head> of your html page when using 
+the responsive table generator code on sites not in UNLcms or the UNL.edu framework -->
+
+table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse
+}
+
+table caption {
+    font-weight: 400;
+    font-style: normal;
+    /*font-size: 2.954rem;*/
+    line-height: 1;
+    margin-bottom: .75em
+}
+
+table th {
+    font-weight: bold;
+    font-style: normal;
+    letter-spacing: .02em;
+    padding: 1.2307em 1.0833em 1.0833em;
+    /*line-height: 1.333;*/
+}
+
+table td, table th {
+    text-align: left
+}
+
+table td {
+    padding: .92307em 1em .7692em
+}
+
+table tbody tr:nth-of-type(even) {
+}
+
+table tbody th {
+}
+
+table tbody td {
+}
+
+table.wdn_responsive_table thead th abbr {
+    border-bottom: none
+}
+
+@media screen and (max-width:47.99em) {
+    table.wdn_responsive_table td, table.wdn_responsive_table th {
+        display: block
+    }
+
+    table.wdn_responsive_table thead tr {
+        display: none
+    }
+
+    table.wdn_responsive_table tbody tr:first-child th {
+        border-top-width: 0
+    }
+
+    table.wdn_responsive_table tbody tr:nth-of-type(even) {
+        background-color: transparent
+    }
+
+    table.wdn_responsive_table tbody td {
+        text-align: left
+    }
+
+    table.wdn_responsive_table tbody td:before {
+        display: block;
+        font-weight: 700;
+        content: attr(data-header)
+    }
+
+    table.wdn_responsive_table tbody td:empty {
+        display: none
+    }
+
+    table.wdn_responsive_table tbody td:nth-of-type(even) {
+    }
+}
+
+@media (min-width:48em) {
+    table caption {
+        font-size: 2.532rem
+    }
+
+    table th {
+        padding: 1.2307em 1.2307em 1em;
+        font-size: .802rem
+    }
+
+    table td {
+        padding: .75em 1em .602em
+    }
+}
+
+@media screen and (min-width:48em) {
+    table.wdn_responsive_table thead th:not(:first-child) {
+        text-align: center
+    }
+
+    table.wdn_responsive_table tbody td {
+        text-align: center
+    }
+
+    table.wdn_responsive_table.flush-left td, table.wdn_responsive_table.flush-left thead th {
+        text-align: left
+    }
+}

@@ -1,0 +1,266 @@
+<!DOCTYPE HTML>
+<!--
+	Astral by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>BetSimu</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" type="text/css" href="assets/css/spinner.css" />
+		<link rel="stylesheet" type="text/css" href="assets/css/wdn_responsive-table.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		
+		<script type="text/javascript" src="cordova.js"></script>	
+		<script type="text/javascript" src="js/variableProcess.js"></script>
+		
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper-->
+			<div id="wrapper">
+
+				<!-- Nav -->
+					<nav id="nav">
+						<a href="#home" class="icon fa-home"><span>首頁</span></a>
+						<a href="#setting" class="icon fa-cog"><span>設定</span></a>
+						<a href="#result" id="resultBar" class="icon fa-table" style="display:none"><span>結果</span></a>
+						<a href="#about" class="icon fa-info-circle"><span>關於此App</span></a>
+						<a href="#contact" class="icon fa-envelope"><span>聯絡棉被蟲</span></a>
+						<a href="index(2).html" class="icon fa-language"><span>English</span></a>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Me -->
+							<article id="home" class="panel intro">
+								<header>
+									<img  id="TitlePic" style='height: 100%; width: 100%; object-fit: contain' src="images/logo.png" alt="" />
+									<h3 id="WaitingLine" style ="display:none">請稍等...</h3>
+									<div class="loader" id="WaitingFor" style="display:none"></div>	
+									<p>先按 "設定"<a class="icon fa-cog"></a> 按鈕進行自動賭模擬的各項數值設定, 再按 "開始"<a class="icon fa-play-circle-o"></a> 按鈕進行模擬!</p>
+								</header>				
+								<div>
+								<a href="#" onclick="StartSimu()" class="icon fa-play-circle-o fa-5x" title="開始"></a>
+								</div>
+									
+							</article>
+
+						<!-- Settings -->
+							<article id="setting" class="panel">
+								<h2 class="major">設定 <a href="#help" onclick="showhide(1)" class="icon fa-question-circle"><span class="label">Help</span></a></h2> 
+								<h4>請於此輸入各項自動賭模擬設定</h4>
+								<table class="wdn_responsive_table flush-left">
+								<caption></caption>
+								<tbody>
+
+									  <tr>
+											<th colspan="1" id="Settings_row_0col_0">最初(基本)賭金</th>
+											<td colspan="1" id="Settings_row_0col_1"><input type="text" id="basebet"  onchange ="AdjustForm()" value=""></td>											
+									   </tr>
+
+
+									  <tr>
+											<th colspan="1" id="Settings_row_1col_0">最大賭注</th>
+											<td colspan="1" id="Settings_row_1col_1"><input type="text" id="maxbet"  onchange ="AdjustForm()" value=""></td>											
+									   </tr>
+
+
+									  <tr>
+											<th colspan="1" id="Settings_row_2col_0">輸時翻幾倍</th>
+											<td colspan="1" id="Settings_row_2col_1"><input type="text" id="increaseRateAtLoss" size=""  onchange ="AdjustForm()" value=""></td>
+									   </tr>
+									  <tr>
+											<th colspan="1" id="Settings_row_4col_0">賠率</th>
+											<td colspan="1" id="Settings_row_4col_1"><input type="text" id="betOdds" onchange ="AdjustForm()" value=""></td>
+									   </tr>
+
+
+									  <tr>
+											<th colspan="1" id="Settings_row_5col_0">勝率</th>
+											<td colspan="1" id="Settings_row_5col_1"><input type="text" id="WinChance" onchange ="AdjustForm()" value="">&nbsp;&nbsp;%</td>
+									   </tr>
+
+
+									  <tr>
+											<th colspan="1" id="Settings_row_6col_0">停損金額</th>
+											<td colspan="1" id="Settings_row_6col_1"><input type="text" id="stoploss" onchange ="AdjustForm()" value=""></td>
+									   </tr>
+
+
+									  <tr>
+											<th colspan="1" id="Settings_row_7col_0">停利金額</th>
+											<td colspan="1" id="Settings_row_7col_1"><input type="text" id="stop_profit" onchange ="AdjustForm()" value=""></td>
+									   </tr>
+
+								</tbody>
+								</table>
+								<table class="wdn_responsive_table flush-left">
+									<tbody>
+										<tr>
+											<th>連續賭次數(預設1000次)</th>
+										</tr>
+										<tr>
+											<td><input type="text" id="betTimes" onchange ="AdjustForm()" value="1,000"></td>
+										</tr>
+										<tr>
+											<th>模擬回數(預設1000回)</th>
+										</tr>
+										<tr>										
+											<td><input type="text" id="SimuRounds" onchange="AdjustForm()" value="1,000"></td>
+										</tr>										
+									</tbody>
+								</table>
+							</article>
+
+						<!-- Result -->
+							<article id="result" class="panel">
+								<h2 class="major">模擬結果數據</h2>								
+								<div id="NoData">No Data</div>								
+								<table id="StatTable" style ="display:none">
+									<tbody>
+										<tr>
+											<th style="text-align:left">最大損失 <a href="#help" onclick="showhide(0)" class="icon fa-question-circle"><span class="label">Help</span></a></th>
+											<td id="mxls">No Data</td>
+										</tr>
+										<tr>
+											<th style="text-align:left">每回賭局期望獲利 <a href="#help" onclick="showhide(0)" class="icon fa-question-circle"><span class="label">Help</span></a></th>
+											<td id="expectedPF">No Data</td>
+										</tr>
+										<tr>
+											<th style="text-align:left">贏的機率 <a href="#help" onclick="showhide(0)" class="icon fa-question-circle"><span class="label">Help</span></a></th>
+											<td id="probwin">No Data</td>	
+										</tr>
+										<tr>
+											<th style="text-align:left">最大損失超過10,000的機率 <a href="#help" onclick="showhide(0)" class="icon fa-question-circle"><span class="label">Help</span></a></th>
+											<td id="losstest">No Data</td>
+										</tr>
+										<tr>
+											<th style="text-align:left">總下注金額 <a href="#help" onclick="showhide(0)" class="icon fa-question-circle"><span class="label">Help</span></a></th>
+											<td id="BetAmt">No Data</td>
+										</tr>					
+									</tbody>
+								</table>
+								
+							</article>
+
+						<!-- About -->
+							<article id="about" class="panel">
+								<h2 class="major">關於此App</h2>
+								<p>棉被蟲研發了這個App。 相關教學影片請見棉被蟲的頻道!</p>
+								<div class="video-container" style="margin-bottom:10px;margin-top:10px;">																			
+									<iframe src="https://www.youtube.com/embed/uXa_4Qtoh5E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>											
+								</div>
+								<ul class="actions">
+									<p>本App的隱私權政策網頁，請按下方按鈕進入</p>
+									<a onclick="cordova.InAppBrowser.open('https://tgerzcx4vzytdvdivvxrtw-on.drv.tw/BetSimu_Homepage/#privacypolicy', '_system', 'location=yes')" target="_blank" class="button primary">隱私權政策</a>
+								</ul>
+							</article>							
+
+						<!-- Contact -->
+							<article id="contact" class="panel">
+								<h2 class="major">聯絡棉被蟲</h2>
+								<p>你可以使用棉被蟲的YouTube頻道聯絡棉被蟲:<br><br>
+								<a  href="https://www.youtube.com/channel/UCgiiUgxNEWiqVwRcsQg4GIg" class="icon fa-youtube-square fa-5x"></a><br>
+								可在任一影片下方留言，棉被蟲在她不忙的時候會回覆你。&Sigma;&#65288;&#65439;&#1076;&#65439;lll&#65289;
+								</p>								
+																							
+								<p>或你可以使用以下表格寫信給棉被蟲，她可能會在不忙碌時回答你...</p>								
+								<form id="contactform" method="get" action="" enctype="text/plain">
+									<div class="fields">									
+										<div class="field half">
+											<label for="name">您的姓名</label>
+											<input type="text" name="name" id="name" placeholder="輸入您的姓名"/>
+										</div>
+										<div class="field half">
+											<label for="email">您的Email信箱</label>
+											<input type="text" name="email" id="email" placeholder="例如: abcd123@xxxmail.com"/>
+										</div>
+										<div class="field">
+											<label for="message">您的訊息</label>
+											<textarea name="message" id="message" rows="4"></textarea>
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" value="寄出訊息" class="button primary" /></li>
+										<li><input type="reset" value="重設" /></li>
+										<li><input type="hidden" name="body" /></li>
+									</ul>
+								</form>
+
+							</article>
+							
+						<!-- Help -->
+							<article id="help" class="panel">
+								<h2 class="major">FAQ(常見問題)</h2>
+								<p>請按下列按鈕取得你需要的資訊!</p>
+								<ul class="actions">	
+									<li><a name="questions" onclick="showhide(0)" class="button">模擬結果數據呈現了什麼? <span href="#help" class="icon fa-angle-down"></span></a></li>
+								</ul>	
+								<ul class="actions">
+									<li><a name="questions" onclick="showhide(1)" class="button">設定要怎麼用? <span href="#help" class="icon fa-angle-down"></span></a></li>
+								</ul>
+								<div name="hideable" id="statstableFAQ" style="display:none">
+									<ul>
+										<li><b>最大損失:</b><br> 在本次模擬中，所出現過的最大損失金額.</li>
+										<li><b>每回賭局期望獲利:</b><br> 平均每回連續賭局獲利. 若您測試了1000回, 就會是這1000回的總獲利除以1000.</li>
+										<li><b>贏的機率:</b><br> 本次模擬中 贏的回數 / 總模擬回數.</li>
+										<li><b>最大損失超過10,000的機率:</b><br> 本次模擬中 曾輸超過10,000的回數 / 總模擬回數.</li>
+										<li><b>總下注金額:</b><br> 本次模擬中總共賭了多少金額. 若您測試了1000回, 即為這1000回模擬連續賭局下注金額的總和.</li>
+									</ul>
+									<h4>更詳細的用法說明，請參見棉被蟲的教學影片!</h4>		
+									<div class="video-container" style="margin-bottom:10px;margin-top:10px;">																			
+											<iframe src="https://www.youtube.com/embed/uXa_4Qtoh5E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>											
+									</div>																	
+								</div>
+
+								<div name="hideable" id="settingsFAQ" style="display:none">
+									<h3>如何設定自動賭模擬</h3>
+									<p>欲執行自動賭模擬器，你應該輸入以下數據:</p>
+									<ul>
+										<li><b>最初(基本)賭金:</b><br> 在每一回賭局開始時下注的金額</li>
+										<li><b>最大賭注:</b><br> 你能下注的最大金額，通常是你所有的賭金</li>
+										<li><b>輸時翻幾倍:</b><br> 如果你輸入2，下一次賭注將會翻2倍</li>
+										<li><b>賠率:</b><br> 歐式賠率.在賠率 = 2 的狀況下, 若你賭 $1 並贏了, 你將會得到 $2,獲利則為 $1</li>
+										<li><b>勝率:</b><br> 贏的機率, 請自您下注的來源(ex: freebitcoin) 取得確切數據</li>
+										<li><b>停損金額:</b><br> 當你輸掉的金額超過此數額, 該回賭博模擬結束並進入下一回模擬</li>
+										<li><b>停利金額:</b><br> 當你贏得的金額超過此數額, 該回賭博模擬結束並進入下一回模擬</li>
+										<li><b>連續賭次數:</b><br> 每回模擬你能連續賭最多幾次</li>
+										<li><b>模擬回數:</b><br> 在本次模擬中你模擬的連續賭回數</li>
+									</ul>
+									<h4>更詳細的用法說明，請參見棉被蟲的教學影片!</h4>
+									<div class="video-container" style="margin-bottom:10px;margin-top:10px;">																			
+											<iframe src="https://www.youtube.com/embed/uXa_4Qtoh5E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>											
+									</div>
+								</div>								
+								
+							</article>							
+							
+					</div>
+
+				<!-- Footer -->
+					<div id="footer">
+						<ul class="copyright">
+							<li>&copy; Comforter Worm 2019</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+						</ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="js/betSimulation.js"></script>
+			<script src="js/help.js"></script>
+			<script src="js/contactme.js"></script>
+			<script src="js/admobFree.js"></script>			
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

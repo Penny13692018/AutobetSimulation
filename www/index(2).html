@@ -1,0 +1,266 @@
+<!DOCTYPE HTML>
+<!--
+	Astral by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>BetSimu</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" type="text/css" href="assets/css/spinner.css" />
+		<link rel="stylesheet" type="text/css" href="assets/css/wdn_responsive-table.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		
+		<script type="text/javascript" src="cordova.js"></script>	
+		<script type="text/javascript" src="js/variableProcess.js"></script>
+		
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper-->
+			<div id="wrapper">
+
+				<!-- Nav -->
+					<nav id="nav">
+						<a href="#home" class="icon fa-home"><span>Home</span></a>
+						<a href="#setting" class="icon fa-cog"><span>Settings</span></a>
+						<a href="#result" id="resultBar" class="icon fa-table" style="display:none"><span>Result</span></a>
+						<a href="#about" class="icon fa-info-circle"><span>About</span></a>
+						<a href="#contact" class="icon fa-envelope"><span>Contact</span></a>
+						<a href="index.html" class="icon fa-language"><span>Chinese</span></a>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Me -->
+							<article id="home" class="panel intro">
+								<header>
+									<img  id="TitlePic" style='height: 100%; width: 100%; object-fit: contain' src="images/logo.png" alt="" />
+									<h3 id="WaitingLine" style ="display:none">Please Wait...</h3>
+									<div class="loader" id="WaitingFor" style="display:none"></div>	
+									<p>Press "Settings"<a class="icon fa-cog"></a> to set simulator configuration, and then press "START"<a class="icon fa-play-circle-o"></a> to start simulating Autobet!</p>
+								</header>				
+								<div>
+								<a href="#" onclick="StartSimu()" class="icon fa-play-circle-o fa-5x" title="START"></a>
+								</div>
+									
+							</article>
+
+						<!-- Settings -->
+							<article id="setting" class="panel">
+								<h2 class="major">Settings <a href="#help" onclick="showhide(1)" class="icon fa-question-circle"><span class="label">Help</span></a></h2> 
+								<h4>Please Input All your Autobet Settings Here </h4>
+								<table class="wdn_responsive_table flush-left">
+								<caption></caption>
+								<tbody>
+
+									  <tr>
+											<th colspan="1" id="Settings_row_0col_0">Base Bet</th>
+											<td colspan="1" id="Settings_row_0col_1"><input type="text" id="basebet"  onchange ="AdjustForm()" value=""></td>											
+									   </tr>
+
+
+									  <tr>
+											<th colspan="1" id="Settings_row_1col_0">Max Bet</th>
+											<td colspan="1" id="Settings_row_1col_1"><input type="text" id="maxbet"  onchange ="AdjustForm()" value=""></td>											
+									   </tr>
+
+
+									  <tr>
+											<th colspan="1" id="Settings_row_2col_0">Increase Rate at Loss</th>
+											<td colspan="1" id="Settings_row_2col_1"><input type="text" id="increaseRateAtLoss" size=""  onchange ="AdjustForm()" value=""></td>
+									   </tr>
+									  <tr>
+											<th colspan="1" id="Settings_row_4col_0">Bet Odds</th>
+											<td colspan="1" id="Settings_row_4col_1"><input type="text" id="betOdds" onchange ="AdjustForm()" value=""></td>
+									   </tr>
+
+
+									  <tr>
+											<th colspan="1" id="Settings_row_5col_0">Win Chance</th>
+											<td colspan="1" id="Settings_row_5col_1"><input type="text" id="WinChance" onchange ="AdjustForm()" value="">&nbsp;&nbsp;%</td>
+									   </tr>
+
+
+									  <tr>
+											<th colspan="1" id="Settings_row_6col_0">Stop Loss Amount</th>
+											<td colspan="1" id="Settings_row_6col_1"><input type="text" id="stoploss" onchange ="AdjustForm()" value=""></td>
+									   </tr>
+
+
+									  <tr>
+											<th colspan="1" id="Settings_row_7col_0">Stop Profit Amount</th>
+											<td colspan="1" id="Settings_row_7col_1"><input type="text" id="stop_profit" onchange ="AdjustForm()" value=""></td>
+									   </tr>
+
+								</tbody>
+								</table>
+								<table class="wdn_responsive_table flush-left">
+									<tbody>
+										<tr>
+											<th>Bet Times(Default Value 1000 times)</th>
+										</tr>
+										<tr>
+											<td><input type="text" id="betTimes" onchange ="AdjustForm()" value="1,000"></td>
+										</tr>
+										<tr>
+											<th>Simulation Round(Default Value 1000 rounds)</th>
+										</tr>
+										<tr>										
+											<td><input type="text" id="SimuRounds" onchange="AdjustForm()" value="1,000"></td>
+										</tr>										
+									</tbody>
+								</table>
+							</article>
+
+						<!-- Result -->
+							<article id="result" class="panel">
+								<h2 class="major">Summary STATS</h2>								
+								<div id="NoData">No Data</div>								
+								<table id="StatTable" style ="display:none">
+									<tbody>
+										<tr>
+											<th style="text-align:left">Max Loss <a href="#help" onclick="showhide(0)" class="icon fa-question-circle"><span class="label">Help</span></a></th>
+											<td id="mxls">No Data</td>
+										</tr>
+										<tr>
+											<th style="text-align:left">Expected Profit per Bet Round <a href="#help" onclick="showhide(0)" class="icon fa-question-circle"><span class="label">Help</span></a></th>
+											<td id="expectedPF">No Data</td>
+										</tr>
+										<tr>
+											<th style="text-align:left">Prob. of Win <a href="#help" onclick="showhide(0)" class="icon fa-question-circle"><span class="label">Help</span></a></th>
+											<td id="probwin">No Data</td>	
+										</tr>
+										<tr>
+											<th style="text-align:left">Prob. of Max Loss more than 10,000 <a href="#help" onclick="showhide(0)" class="icon fa-question-circle"><span class="label">Help</span></a></th>
+											<td id="losstest">No Data</td>
+										</tr>
+										<tr>
+											<th style="text-align:left">Total Bet Amount <a href="#help" onclick="showhide(0)" class="icon fa-question-circle"><span class="label">Help</span></a></th>
+											<td id="BetAmt">No Data</td>
+										</tr>					
+									</tbody>
+								</table>
+								
+							</article>
+
+						<!-- About -->
+							<article id="about" class="panel">
+								<h2 class="major">About This App</h2>
+								<p>Comforter Worm developed this app. Tutorial Video of this app is posted on my Youtube Channel!</p>
+								<div class="video-container" style="margin-bottom:10px;margin-top:10px;">																			
+									<iframe src="https://www.youtube.com/embed/uXa_4Qtoh5E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>											
+								</div>
+								<ul class="actions">
+									<p>Press the button for privacy policy of this app</p>
+									<a onclick="cordova.InAppBrowser.open('https://tgerzcx4vzytdvdivvxrtw-on.drv.tw/BetSimu_Homepage/#privacypolicy', '_system', 'location=yes')" target="_blank" class="button primary">Privacy Policy</a>
+								</ul>
+							</article>							
+
+						<!-- Contact -->
+							<article id="contact" class="panel">
+								<h2 class="major">Contact</h2>
+								<p>You can contact Comforter Worm via Youtube Channel:<br><br>
+								<a  href="https://www.youtube.com/channel/UCgiiUgxNEWiqVwRcsQg4GIg" class="icon fa-youtube-square fa-5x"></a><br>
+								Leave your message below the tutorial video and Comforter Worm may reply you when she&rsquo;s not busy .&Sigma;&#65288;&#65439;&#1076;&#65439;lll&#65289;
+								</p>								
+																							
+								<p>Or you can use this contact form. Comforter Worm may reply when she is not busy...</p>								
+								<form id="contactform" method="get" action="" enctype="text/plain">
+									<div class="fields">									
+										<div class="field half">
+											<label for="name">Name</label>
+											<input type="text" name="name" id="name" placeholder="Enter your user Name"/>
+										</div>
+										<div class="field half">
+											<label for="email">Email</label>
+											<input type="text" name="email" id="email" placeholder="ex: abcd123@xxxmail.com"/>
+										</div>
+										<div class="field">
+											<label for="message">Message</label>
+											<textarea name="message" id="message" rows="4"></textarea>
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" value="Send Message" class="button primary" /></li>
+										<li><input type="reset" value="Reset" /></li>
+										<li><input type="hidden" name="body" /></li>
+									</ul>
+								</form>
+
+							</article>
+							
+						<!-- Help -->
+							<article id="help" class="panel">
+								<h2 class="major">FAQs</h2>
+								<p>Press the button for Info you Need!</p>
+								<ul class="actions">	
+									<li><a name="questions" onclick="showhide(0)" class="button">What's in Stats Table? <span href="#help" class="icon fa-angle-down"></span></a></li>
+								</ul>	
+								<ul class="actions">
+									<li><a name="questions" onclick="showhide(1)" class="button">What should I input in Settings? <span href="#help" class="icon fa-angle-down"></span></a></li>
+								</ul>
+								<div name="hideable" id="statstableFAQ" style="display:none">
+									<ul>
+										<li><b>Max Loss:</b><br> Maximum Loss encountered during simulation of this time.</li>
+										<li><b>Expected Profit per Bet Round:</b><br> The average profit of this test per round. If you test for 1000 rounds, it will be sum of total profit of 1000 round divided by 1000.</li>
+										<li><b>Prob. of Win:</b><br> Number of win rounds / Number of rounds in this simulation.</li>
+										<li><b>Prob. of Max Loss more than 10,000:</b><br> Number of rounds which loss is > 10,000 / Number of rounds in this simulation.</li>
+										<li><b>Total Bet Amount:</b><br> Sum of total bet amount of all rounds in this simulation. If you test for 1000 rounds, this is sum of the total amount you bet in 1000 rounds.</li>
+									</ul>
+									<h4>For more information or instructions, watch my Tutorial Video!</h4>		
+									<div class="video-container" style="margin-bottom:10px;margin-top:10px;">																			
+											<iframe src="https://www.youtube.com/embed/uXa_4Qtoh5E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>											
+									</div>																	
+								</div>
+
+								<div name="hideable" id="settingsFAQ" style="display:none">
+									<h3>How to Setup Simulation</h3>
+									<p>Here is what you should input:</p>
+									<ul>
+										<li><b>Base Bet:</b><br> Initial bet amount at the start of the bet</li>
+										<li><b>Max Bet:</b><br> Maximum amount you can bet</li>
+										<li><b>Increase Rate at Loss:</b><br> If you put in 2, you will double you bet when you lose</li>
+										<li><b>Bet Odds:</b><br> European bet odds. Under bet odds = 2 assumption, if you bet $1 and you win, you'll get $2 and profit is $1</li>
+										<li><b>Win Chance:</b><br> Probability of win, please look at your betting sites(ex: freebitcoin) for it</li>
+										<li><b>Stop Loss Amount:</b><br> When your bet lose more than this amount, 1 round ends and start a next round in simulation</li>
+										<li><b>Stop Profit Amount:</b><br> When your bet win more than this amount, 1 round ends and start a next round in simulation</li>
+										<li><b>Bet Times:</b><br> The maximum number of times you bet in 1 round</li>
+										<li><b>Simulation Round:</b><br> Number of rounds you use in this simlation</li>
+									</ul>
+									<h4>For more information or instructions, watch my Tutorial Video!</h4>
+									<div class="video-container" style="margin-bottom:10px;margin-top:10px;">																			
+											<iframe src="https://www.youtube.com/embed/uXa_4Qtoh5E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>											
+									</div>
+								</div>								
+								
+							</article>							
+							
+					</div>
+
+				<!-- Footer -->
+					<div id="footer">
+						<ul class="copyright">
+							<li>&copy; Comforter Worm 2019</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+						</ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="js/betSimulation.js"></script>
+			<script src="js/help.js"></script>
+			<script src="js/contactme.js"></script>
+			<script src="js/admobFree.js"></script>			
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
