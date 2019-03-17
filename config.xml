@@ -11,6 +11,7 @@
 	<preference name="AllowInlineMediaPlayback" value="true" />
 	<preference name="MediaPlaybackRequiresUserAction" value="false" /> 
 	<preference name="phonegap-version" value="cli-8.1.1" />
+	<preference name="windows-arch" value="x64" />
 	<allow-navigation href="*youtube*" />
 	<allow-navigation href="*ytimg*" />
 	
