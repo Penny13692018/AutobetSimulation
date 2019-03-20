@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.comfoterworm.AutobetSimulation" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.comfoterworm.AutobetSimulation" version="1.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>BetSimu</name>
     <description>
         此為棉被蟲開發之自動賭模擬器，適用歐式賠率，可輸入各項數值進行大量連續賭局模擬。
